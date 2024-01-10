@@ -1,10 +1,12 @@
 package com.example.gymdolphin;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -33,6 +35,16 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        // Add onClickListener for "forgot password?" link, "Not a member yet?" button, and "continue as a guest" text as needed.
+        // Set an onClickListener for "Forgot Password?" TextView
+        forgotPasswordTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Start the ForgotPasswordActivity when the TextView is clicked
+                Intent intent = new Intent(MainActivity.this, ForgotPasswordActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        // Add onClickListener for "Not a member yet?" button, and "Continue as a guest" TextView as needed.
     }
 }
