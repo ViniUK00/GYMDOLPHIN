@@ -100,6 +100,12 @@
         android:layout_below="@id/passwordEditText"
         android:layout_marginTop="8dp"/>
 
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
     <!-- Create Account Button -->
     <Button
         android:id="@+id/createAccountButton"

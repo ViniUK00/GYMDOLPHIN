@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "166753344687",
+    "project_id": "gymdolphin-689ae",
+    "storage_bucket": "gymdolphin-689ae.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:166753344687:android:79b52dffb8bd6443a2885a",
+        "android_client_info": {
+          "package_name": "com.example.gymdolphin"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCFWlDqDUtgkmcQ4TMrd3msgYad-cJBfQU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
