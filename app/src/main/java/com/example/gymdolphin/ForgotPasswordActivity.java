@@ -7,8 +7,13 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class ForgotPasswordActivity extends AppCompatActivity {
 
@@ -40,9 +45,20 @@ public class ForgotPasswordActivity extends AppCompatActivity {
 
                 // Check if the email is not empty
                 if (!email.isEmpty()) {
-                    // Implement your password recovery logic here
-                    // For now, display a toast message indicating the recovery process
-                    Toast.makeText(ForgotPasswordActivity.this, "Password recovery initiated for " + email, Toast.LENGTH_SHORT).show();
+                    // Initiate Firebase password reset
+                    FirebaseAuth.getInstance().sendPasswordResetEmail(email)
+                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if (task.isSuccessful()) {
+                                        // Password reset email sent successfully
+                                        Toast.makeText(ForgotPasswordActivity.this, "Password reset email sent to " + email, Toast.LENGTH_SHORT).show();
+                                    } else {
+                                        // If the reset link couldn't be sent
+                                        Toast.makeText(ForgotPasswordActivity.this, "Failed to send reset email: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                            });
                 } else {
                     // Display a toast message if the email is empty
                     Toast.makeText(ForgotPasswordActivity.this, "Please enter your email", Toast.LENGTH_SHORT).show();

@@ -2,7 +2,6 @@ package com.example.gymdolphin;
 
 import android.app.DatePickerDialog;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -16,30 +15,39 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.Calendar;
 
+
 public class RegisterActivity extends AppCompatActivity {
 
-    private EditText birthdayEditText;
+    private EditText firstNameEditText, lastNameEditText, birthdayEditText;
+    private EditText emailEditText, passwordEditText, confirmPasswordEditText;
     private ProgressBar progressBar;
-    private EditText emailEditText;
-    private EditText passwordEditText;
     private ImageButton backButton;
     private Button createAccountButton;
-    FirebaseAuth mAuth;
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
         mAuth = FirebaseAuth.getInstance();
+
+        firstNameEditText = findViewById(R.id.firstNameEditText);
+        lastNameEditText = findViewById(R.id.lastNameEditText);
         birthdayEditText = findViewById(R.id.birthdayEditText);
-        emailEditText = findViewById(R.id.emailEditText);  // Added this line
-        passwordEditText = findViewById(R.id.passwordEditText);  // Added this line
+        emailEditText = findViewById(R.id.emailEditText);
+        passwordEditText = findViewById(R.id.passwordEditText);
+        confirmPasswordEditText = findViewById(R.id.confirmPasswordEditText);
         backButton = findViewById(R.id.backButton);
         createAccountButton = findViewById(R.id.createAccountButton);
         progressBar = findViewById(R.id.progressBar);
@@ -64,14 +72,25 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 progressBar.setVisibility(View.VISIBLE);
-                // Retrieve email and password from EditText fields
+                // Retrieve values from EditText fields
+                String firstName = firstNameEditText.getText().toString();
+                String lastName = lastNameEditText.getText().toString();
                 String email = emailEditText.getText().toString();
                 String password = passwordEditText.getText().toString();
-                // Validate if email and password are not empty
-                if (!email.isEmpty() && !password.isEmpty()) {
-                    createAccount(email, password);
+                String confirmPassword = confirmPasswordEditText.getText().toString();
+
+                // Validate if required fields are not empty
+                if (!firstName.isEmpty() && !lastName.isEmpty() && !email.isEmpty() && !password.isEmpty() && !confirmPassword.isEmpty()) {
+                    // Check if password and confirm password match
+                    if (password.equals(confirmPassword)) {
+                        createAccount(email, password, firstName, lastName, birthdayEditText.getText().toString());
+                    } else {
+                        showToast("Passwords do not match");
+                        progressBar.setVisibility(View.GONE);
+                    }
                 } else {
-                    showToast("Please enter email and password");
+                    showToast("Please fill in all fields");
+                    progressBar.setVisibility(View.GONE);
                 }
             }
         });
@@ -94,9 +113,7 @@ public class RegisterActivity extends AppCompatActivity {
         datePicker.show();
     }
 
-    private void createAccount(String email, String password) {
-        System.out.println(email);
-        System.out.println(password);
+    private void createAccount(String email, String password, String firstName, String lastName, String birthday) {
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(RegisterActivity.this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -104,18 +121,37 @@ public class RegisterActivity extends AppCompatActivity {
                         progressBar.setVisibility(View.GONE);
                         if (task.isSuccessful()) {
                             FirebaseUser user = mAuth.getCurrentUser();
-                            Log.d("RegisterActivity", "createUserWithEmail:success, UID: " + user.getUid());
-                            showToast("Success");
+
+                            // Create a User object with additional information
+                            User userProfile = new User(firstName, lastName, birthday, email, password);
+
+                            // Store the user's additional information in Firestore with username as document ID
+                            FirebaseFirestore db = FirebaseFirestore.getInstance();
+                            CollectionReference usersCollection = db.collection("users");
+                            DocumentReference userRef = usersCollection.document(userProfile.getUsername());
+
+                            userRef.set(userProfile)
+                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void aVoid) {
+                                            showToast("Account created successfully!");
+                                        }
+                                    })
+                                    .addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            showToast("Failed to store user data: " + e.getMessage());
+                                        }
+                                    });
                         } else {
-                            Log.w("RegisterActivity", "createUserWithEmail:failure", task.getException());
-                            showToast("Failed");
+                            showToast("Account creation failed: " + task.getException().getMessage());
                         }
                     }
                 });
     }
 
+
     private void showToast(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
-
 }
