@@ -18,11 +18,11 @@
         android:id="@+id/emailEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="EMAIL"
+        android:hint="Email"
         android:inputType="textEmailAddress"
         android:textColor="@android:color/white"
         android:backgroundTint="@color/white"
-        android:textColorHint="@color/white"
+        android:textColorHint="#808080"
         android:layout_below="@id/logoImageView"
         android:layout_marginTop="16dp"/>
 
@@ -30,11 +30,11 @@
         android:id="@+id/passwordEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="PASSWORD"
+        android:hint="Password"
         android:inputType="textPassword"
         android:textColor="@android:color/white"
         android:backgroundTint="@color/white"
-        android:textColorHint="@android:color/white"
+        android:textColorHint="#808080"
         android:layout_below="@id/emailEditText"
         android:layout_marginTop="8dp"/>
 

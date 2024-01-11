@@ -40,11 +40,21 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 // Start the ForgotPasswordActivity when the TextView is clicked
-                Intent intent = new Intent(MainActivity.this, ForgotPasswordActivity.class);
-                startActivity(intent);
+                Intent forgotPasswordIntent = new Intent(MainActivity.this, ForgotPasswordActivity.class);
+                startActivity(forgotPasswordIntent);
             }
         });
 
-        // Add onClickListener for "Not a member yet?" button, and "Continue as a guest" TextView as needed.
+        // Set an onClickListener for "Not a member yet?" button
+        notMemberButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Start the RegisterActivity when the button is clicked
+                Intent registerIntent = new Intent(MainActivity.this, RegisterActivity.class);
+                startActivity(registerIntent);
+            }
+        });
+
+        // Add onClickListener for "Continue as a guest" TextView as needed.
     }
 }
