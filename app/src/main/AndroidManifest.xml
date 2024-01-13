@@ -35,6 +35,9 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".CatalogActivity" />
         </activity>
+        <activity android:name=".UserProfileActivity">
+
+        </activity>
 
 
     </application>

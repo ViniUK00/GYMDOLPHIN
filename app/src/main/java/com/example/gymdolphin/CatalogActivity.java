@@ -55,7 +55,8 @@ public class CatalogActivity extends AppCompatActivity {
 
                 if (itemId == R.id.nav_user) {
                     // Handle user icon click
-                    // Example: startActivity(new Intent(CatalogActivity.this, UserProfileActivity.class));
+                    startActivity(new Intent(CatalogActivity.this, UserProfileActivity.class)
+                            .putExtra("USERNAME_EXTRA", currentUser.getDisplayName()));
                     return true;
                 } else if (itemId == R.id.nav_cart) {
                     // Handle cart icon click
@@ -110,7 +111,6 @@ public class CatalogActivity extends AppCompatActivity {
                             }
                         });
                     }
-
 
                     @NonNull
                     @Override

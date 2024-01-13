@@ -15,10 +15,12 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 
 public class MainActivity extends AppCompatActivity {
 
-    private EditText emailEditText, passwordEditText;
+    private EditText usernameEditText, passwordEditText;
     private Button signInButton, notMemberButton;
     private TextView forgotPasswordTextView, continueAsGuestTextView;
     private FirebaseAuth mAuth;
@@ -28,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        emailEditText = findViewById(R.id.emailEditText);
+        usernameEditText = findViewById(R.id.emailEditText); // Assuming username is entered in the email field
         passwordEditText = findViewById(R.id.passwordEditText);
         signInButton = findViewById(R.id.signInButton);
         forgotPasswordTextView = findViewById(R.id.forgotPasswordTextView);
@@ -39,14 +41,14 @@ public class MainActivity extends AppCompatActivity {
         signInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // Retrieve email and password from EditText fields
-                String email = emailEditText.getText().toString();
+                // Retrieve username and password from EditText fields
+                String username = usernameEditText.getText().toString();
                 String password = passwordEditText.getText().toString();
-                // Validate if email and password are not empty
-                if (!email.isEmpty() && !password.isEmpty()) {
-                    signIn(email, password);
+                // Validate if username and password are not empty
+                if (!username.isEmpty() && !password.isEmpty()) {
+                    signInWithUsername(username, password);
                 } else {
-                    showToast("Please enter email and password");
+                    showToast("Please enter username and password");
                 }
             }
         });
@@ -76,20 +78,47 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void signIn(String email, String password) {
-        mAuth.signInWithEmailAndPassword(email, password)
-                .addOnCompleteListener(MainActivity.this, new OnCompleteListener<AuthResult>() {
+    private void signInWithUsername(String username, String password) {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+        db.collection("users")
+                .whereEqualTo("username", username)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            showToast("Sign-in successful!");
-                            // You can navigate to another activity or perform actions as needed
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful() && task.getResult() != null && !task.getResult().isEmpty()) {
+                            // Get the email associated with the provided username
+                            String email = task.getResult().getDocuments().get(0).getString("email");
+
+                            // Sign in with the retrieved email and the provided password
+                            mAuth.signInWithEmailAndPassword(email, password)
+                                    .addOnCompleteListener(MainActivity.this, new OnCompleteListener<AuthResult>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<AuthResult> task) {
+                                            if (task.isSuccessful()) {
+                                                showToast("Sign-in successful!");
+                                                launchUserProfileActivity(username);
+                                            } else {
+                                                showToast("Sign-in failed. Please check your credentials.");
+                                            }
+                                        }
+                                    });
                         } else {
-                            showToast("Sign-in failed. Please check your credentials.");
+                            showToast("Username not found.");
                         }
                     }
                 });
     }
+
+
+    private void launchUserProfileActivity(String username) {
+        Intent userProfileIntent = new Intent(MainActivity.this, UserProfileActivity.class);
+        userProfileIntent.putExtra("USERNAME_EXTRA", username);
+        startActivity(userProfileIntent);
+        finish(); // Finish the MainActivity to prevent the user from going back using the back button
+    }
+
 
     private void showToast(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
