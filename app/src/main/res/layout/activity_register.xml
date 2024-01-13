@@ -2,22 +2,21 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/black"
+    android:background="@color/white"
     android:padding="16dp">
 
+    <!-- Logo -->
     <ImageButton
         android:id="@+id/backButton"
-        android:layout_width="60dp"
-        android:layout_height="51dp"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="1dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:background="?android:attr/selectableItemBackground"
         android:contentDescription="Back Button"
         android:src="@drawable/back_ic" />
 
-    <!-- Logo -->
     <ImageView
         android:id="@+id/logoImageView"
         android:layout_width="346dp"
@@ -35,7 +34,7 @@
         android:hint="First Name"
         android:inputType="text"
         android:textColorHint="#808080"
-        android:textColor="@android:color/white"
+        android:textColor="@android:color/black"
         android:layout_below="@id/logoImageView"
         android:layout_marginTop="16dp"/>
 
@@ -47,7 +46,7 @@
         android:hint="Last Name"
         android:inputType="text"
         android:textColorHint="#808080"
-        android:textColor="@android:color/white"
+        android:textColor="@android:color/black"
         android:layout_below="@id/firstNameEditText"
         android:layout_marginTop="8dp"/>
 
@@ -60,7 +59,7 @@
         android:focusable="false"
         android:clickable="true"
         android:textColorHint="#808080"
-        android:textColor="@android:color/white"
+        android:textColor="@android:color/black"
         android:layout_below="@id/lastNameEditText"
         android:layout_marginTop="8dp"/>
 
@@ -72,7 +71,7 @@
         android:hint="Email"
         android:textColorHint="#808080"
         android:inputType="textEmailAddress"
-        android:textColor="@android:color/white"
+        android:textColor="@android:color/black"
         android:layout_below="@id/birthdayEditText"
         android:layout_marginTop="8dp"/>
 
@@ -84,7 +83,7 @@
         android:hint="Password"
         android:textColorHint="#808080"
         android:inputType="textPassword"
-        android:textColor="@android:color/white"
+        android:textColor="@android:color/black"
         android:layout_below="@id/emailEditText"
         android:layout_marginTop="8dp"/>
 
@@ -96,7 +95,7 @@
         android:hint="Confirm Password"
         android:inputType="textPassword"
         android:textColorHint="#808080"
-        android:textColor="@android:color/white"
+        android:textColor="@android:color/black"
         android:layout_below="@id/passwordEditText"
         android:layout_marginTop="8dp"/>
 
@@ -112,11 +111,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Create Account"
-        android:textColor="#000000"
+        android:textColor="#FFFFFF"
         android:layout_below="@id/confirmPasswordEditText"
         android:layout_marginTop="100dp"
         android:textStyle="bold"
-        android:backgroundTint="@color/white"
+        android:backgroundTint="@color/black"
         android:radius="15dp"/>
 
 </RelativeLayout>

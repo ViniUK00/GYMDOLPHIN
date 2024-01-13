@@ -51,27 +51,29 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        // Set an onClickListener for "Forgot Password?" TextView
         forgotPasswordTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // Start the ForgotPasswordActivity when the TextView is clicked
                 Intent forgotPasswordIntent = new Intent(MainActivity.this, ForgotPasswordActivity.class);
                 startActivity(forgotPasswordIntent);
             }
         });
 
-        // Set an onClickListener for "Not a member yet?" button
         notMemberButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // Start the RegisterActivity when the button is clicked
                 Intent registerIntent = new Intent(MainActivity.this, RegisterActivity.class);
                 startActivity(registerIntent);
             }
         });
 
-        // Add onClickListener for "Continue as a guest" TextView as needed.
+        continueAsGuestTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent catalogIntent = new Intent(MainActivity.this, CatalogActivity.class);
+                startActivity(catalogIntent);
+            }
+        });
     }
 
     private void signIn(String email, String password) {
@@ -80,11 +82,9 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
                             showToast("Sign-in successful!");
                             // You can navigate to another activity or perform actions as needed
                         } else {
-                            // If sign in fails, display a message to the user.
                             showToast("Sign-in failed. Please check your credentials.");
                         }
                     }
