@@ -90,11 +90,27 @@ public class CatalogActivity extends AppCompatActivity {
                     @Override
                     protected void onBindViewHolder(@NonNull ItemViewHolder holder, int position, @NonNull ItemModel model) {
                         // Bind data to your ViewHolder
-                        holder.setItemImage(model.getImage());  // Use getImage() to get the image URL
+                        holder.setItemImage(model.getImage());
                         holder.setItemName(model.getName());
                         holder.setItemPrice(model.getPrice());
                         holder.setItemSmallDescription(model.getSmallDescription());
+
+                        // Add click listener to open ItemDetailsActivity
+                        holder.itemView.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                Intent intent = new Intent(CatalogActivity.this, ItemDetailsActivity.class);
+                                intent.putExtra("image", model.getImage());
+                                intent.putExtra("name", model.getName());
+                                intent.putExtra("price", model.getPrice());
+                                intent.putExtra("smallDescription", model.getSmallDescription());
+                                intent.putExtra("bigDescription", model.getBigDescription());
+                                intent.putExtra("stockCount", model.getStockCount());
+                                startActivity(intent);
+                            }
+                        });
                     }
+
 
                     @NonNull
                     @Override

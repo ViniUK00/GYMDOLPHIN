@@ -27,6 +27,15 @@
         </activity>
         <activity android:name=".CatalogActivity">
         </activity>
+        <activity
+            android:name=".ItemDetailsActivity"
+            android:label="Item Details"
+            android:parentActivityName=".CatalogActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".CatalogActivity" />
+        </activity>
+
 
     </application>
 
