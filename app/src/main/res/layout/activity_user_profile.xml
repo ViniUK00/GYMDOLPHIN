@@ -63,7 +63,6 @@
             android:text="Email: "
             android:textSize="18sp"
             android:layout_marginTop="8dp"/>
-
         <TextView
             android:id="@+id/passwordTextView"
             android:layout_width="wrap_content"
@@ -72,6 +71,7 @@
             android:textSize="18sp"
             android:layout_marginTop="8dp"/>
     </LinearLayout>
+
 
     <Button
         android:id="@+id/saveButton"
@@ -82,7 +82,6 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="8dp"/>
 
-    <!-- Bottom Navigation View -->
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationView"
         android:layout_width="match_parent"
