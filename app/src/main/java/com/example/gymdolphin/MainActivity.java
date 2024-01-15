@@ -98,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
                                         public void onComplete(@NonNull Task<AuthResult> task) {
                                             if (task.isSuccessful()) {
                                                 showToast("Sign-in successful!");
-                                                launchUserProfileActivity(username);
+                                                launchCatalogActivity(username);
                                             } else {
                                                 showToast("Sign-in failed. Please check your credentials.");
                                             }
@@ -112,11 +112,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    private void launchUserProfileActivity(String username) {
-        Intent userProfileIntent = new Intent(MainActivity.this, UserProfileActivity.class);
-        userProfileIntent.putExtra("USERNAME_EXTRA", username);
-        startActivity(userProfileIntent);
-        finish(); // Finish the MainActivity to prevent the user from going back using the back button
+    private void launchCatalogActivity(String username) {
+        Intent catalogIntent = new Intent(MainActivity.this, CatalogActivity.class);
+        catalogIntent.putExtra("USERNAME_EXTRA", username);
+        startActivity(catalogIntent);
     }
 
 

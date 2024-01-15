@@ -31,6 +31,8 @@ public class CatalogActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private FirebaseFirestore firestore;
     private FirebaseUser currentUser;
+    private TextView welcomeMessageTextView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,8 +42,16 @@ public class CatalogActivity extends AppCompatActivity {
         currentUser = FirebaseAuth.getInstance().getCurrentUser();
         firestore = FirebaseFirestore.getInstance();
 
+        welcomeMessageTextView = findViewById(R.id.welcomeMessageTextView);
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        Intent intent = getIntent();
+        if (intent != null && intent.hasExtra("USERNAME_EXTRA")) {
+            String username = intent.getStringExtra("USERNAME_EXTRA");
+            String welcomeMessage = "WELCOME BACK, " + username + "!";
+            welcomeMessageTextView.setText(welcomeMessage);
+        }
 
         // Add a divider between items
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(), LinearLayoutManager.VERTICAL);
@@ -55,16 +65,22 @@ public class CatalogActivity extends AppCompatActivity {
 
                 if (itemId == R.id.nav_user) {
                     // Handle user icon click
+                    String username = intent.getStringExtra("USERNAME_EXTRA");
                     startActivity(new Intent(CatalogActivity.this, UserProfileActivity.class)
-                            .putExtra("USERNAME_EXTRA", currentUser.getDisplayName()));
+                            .putExtra("USERNAME_EXTRA", username));
+
                     return true;
-                } else if (itemId == R.id.nav_cart) {
+
+            } else if (itemId == R.id.nav_cart) {
                     // Handle cart icon click
                     // Example: startActivity(new Intent(CatalogActivity.this, CartActivity.class));
                     return true;
                 } else if (itemId == R.id.nav_catalog) {
                     // Handle home icon click
-                    startActivity(new Intent(CatalogActivity.this, CatalogActivity.class));
+                    String username = getIntent().getStringExtra("USERNAME_EXTRA");
+                    startActivity(new Intent(CatalogActivity.this, CatalogActivity.class)
+                            .putExtra("USERNAME_EXTRA", username));
+
                     return true;
                 }
 
