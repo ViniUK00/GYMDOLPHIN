@@ -178,7 +178,7 @@ public class CatalogActivity extends AppCompatActivity {
         public void setItemPrice(double price) {
             TextView priceView = mView.findViewById(R.id.itemPrice);
             // Customize the appearance of the price text
-            priceView.setText(String.format("$%.2f", price));
+            priceView.setText(String.format("£%.2f", price));
         }
 
         public void setItemSmallDescription(String smallDescription) {

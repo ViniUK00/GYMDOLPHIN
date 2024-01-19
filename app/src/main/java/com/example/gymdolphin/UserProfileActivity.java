@@ -16,6 +16,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -29,9 +30,12 @@ public class UserProfileActivity extends AppCompatActivity {
     private ImageView firstNameIcon, lastNameIcon, updateBirthdayIcon, updateEmailIcon, updatePasswordIcon;
     private LinearLayout fieldsLayout;
     private Button saveButton;
+    private Button signOutButton;
     private BottomNavigationView bottomNavigationView;
 
     private EditText firstNameEditText , lastNameEditText, birthdayEditText, emailEditText, passwordEditText;
+    private FirebaseAuth firebaseAuth;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,13 +55,24 @@ public class UserProfileActivity extends AppCompatActivity {
         // Fetch user data from Firestore based on the username
         fetchUserData(username);
 
+        firebaseAuth = FirebaseAuth.getInstance();
         // Set click listeners for the icons
         setIconClickListeners();
 
+        signOutButton.setOnClickListener(v -> signOutUser());
         // Set Bottom Navigation Bar listener
         bottomNavigationView.setOnNavigationItemSelectedListener(navListener);
 
         // Set other listeners or perform other operations as needed...
+    }
+
+    private void signOutUser() {
+        // Sign out the user using FirebaseAuth
+        firebaseAuth.signOut();
+
+        // After signing out, navigate back to the login or home screen
+        startActivity(new Intent(UserProfileActivity.this, MainActivity.class));
+        finish(); // Close the current activity
     }
 
     private void initViews() {
@@ -70,6 +85,7 @@ public class UserProfileActivity extends AppCompatActivity {
         firstNameIcon = findViewById(R.id.firstNameIcon);
         lastNameIcon = findViewById(R.id.lastNameIcon);
         updateBirthdayIcon = findViewById(R.id.updatebirthday);
+        signOutButton = findViewById(R.id.signOutButton);
         updateEmailIcon = findViewById(R.id.updateEmail);
         updatePasswordIcon = findViewById(R.id.updatePassword);
         fieldsLayout = findViewById(R.id.fieldsLayout);
@@ -185,8 +201,9 @@ public class UserProfileActivity extends AppCompatActivity {
                         finish();
                         return true;
                     } else if (itemId == R.id.nav_cart) {
-                        // Handle cart icon click
-                        // Example: startActivity(new Intent(UserProfileActivity.this, CartActivity.class));
+                        String username = getIntent().getStringExtra("USERNAME_EXTRA");
+                        startActivity(new Intent(UserProfileActivity.this, CartActivity.class)
+                                .putExtra("USERNAME_EXTRA", username));
                         finish();
                         return true;
                     } else if (itemId == R.id.nav_catalog) {

@@ -1,0 +1,141 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <!-- Logo ImageView -->
+    <ImageView
+        android:id="@+id/logoImageView"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/app_logo"
+        />
+
+    <!-- Address Details -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <EditText
+            android:id="@+id/firstLineEditText"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginBottom="8dp"
+            android:padding="16dp"
+            android:hint="First Line"
+            android:layout_marginVertical="10dp"
+            />
+
+        <EditText
+            android:id="@+id/secondLineEditText"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginBottom="8dp"
+            android:padding="16dp"
+            android:hint="Second Line"
+            android:layout_marginVertical="10dp"
+            />
+
+        <EditText
+            android:id="@+id/cityEditText"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginBottom="8dp"
+            android:padding="16dp"
+            android:hint="City"
+            android:layout_marginVertical="10dp"
+            />
+
+        <EditText
+            android:id="@+id/postcodeEditText"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginBottom="8dp"
+            android:padding="16dp"
+            android:hint="Postcode"
+            android:layout_marginVertical="10dp"
+            />
+    </LinearLayout>
+
+    <!-- Horizontal Line -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"/>
+
+    <!-- Card Details -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <EditText
+            android:id="@+id/creditCardNumberEditText"
+            android:layout_width="550dp"
+            android:layout_height="60dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="8dp"
+            android:padding="16dp"
+            android:hint="Credit Card Number"
+            android:layout_marginVertical="10dp"
+            />
+
+        <EditText
+            android:id="@+id/expiryDateEditText"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginBottom="8dp"
+            android:padding="16dp"
+            android:hint="Expiry Date"
+            android:layout_marginVertical="10dp"
+            />
+
+        <EditText
+            android:id="@+id/cvvEditText"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginBottom="16dp"
+            android:padding="16dp"
+            android:hint="CVV"
+            android:layout_marginVertical="10dp"
+            />
+    </LinearLayout>
+
+    <!-- Buttons -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="10dp"
+        android:layout_margin="5dp"
+        android:layout_marginHorizontal="15dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/cancelButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginRight="8dp"
+            android:text="Cancel"
+            android:textColor="#FFFFFF"
+            android:backgroundTint="@color/black"
+            android:padding="16dp"
+            android:radius="12dp"/>
+
+        <Button
+            android:id="@+id/okButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Pay"
+            android:textColor="#FFFFFF"
+            android:backgroundTint="@color/black"
+            android:padding="16dp"
+            android:radius="12dp"/>
+    </LinearLayout>
+</LinearLayout>

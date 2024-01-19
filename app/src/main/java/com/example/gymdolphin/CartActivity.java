@@ -7,8 +7,10 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -54,6 +56,17 @@ public class CartActivity extends AppCompatActivity {
 
         // TextView to display total value
         TextView totalValueTextView = findViewById(R.id.totalValueTextView);
+        // Inside your CartActivity
+        Button proceedToCheckoutButton = findViewById(R.id.proceedToCheckoutButton);
+        proceedToCheckoutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Show the credit card details dialog
+                CheckoutDialogFragment dialogFragment = new CheckoutDialogFragment();
+                dialogFragment.show(getSupportFragmentManager(), "CheckoutDialogFragment");
+            }
+        });
+
 
         // Log the cart items from Firestore and update RecyclerView
         logCartItems(username, recyclerView, totalValueTextView);
@@ -163,6 +176,10 @@ public class CartActivity extends AppCompatActivity {
             // For simplicity, I'm assuming you have an ImageView with id "itemImageView" in your item_cart.xml layout
             Glide.with(holder.itemView.getContext()).load(cartItem.getImageUrl()).into(holder.itemImageView);
         }
+
+        // Inside your CartActivity
+
+
 
         @Override
         public int getItemCount() {

@@ -60,7 +60,7 @@ public class ItemDetailsActivity extends AppCompatActivity {
                     .error(R.drawable.back_ic)
                     .into(itemImage);
             itemName.setText(name);
-            itemPrice.setText(String.format("$%.2f", price));
+            itemPrice.setText(String.format("£%.2f", price));
             itemSmallDescription.setText(smallDescription);
             itemBigDescription.setText(bigDescription);
             itemStockCount.setText(String.valueOf(stockCount));
