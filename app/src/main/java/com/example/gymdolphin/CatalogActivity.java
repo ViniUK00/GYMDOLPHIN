@@ -123,6 +123,7 @@ public class CatalogActivity extends AppCompatActivity {
                                 intent.putExtra("smallDescription", model.getSmallDescription());
                                 intent.putExtra("bigDescription", model.getBigDescription());
                                 intent.putExtra("stockCount", model.getStockCount());
+                                intent.putExtra("USERNAME_EXTRA", getIntent().getStringExtra("USERNAME_EXTRA"));
                                 startActivity(intent);
                             }
                         });

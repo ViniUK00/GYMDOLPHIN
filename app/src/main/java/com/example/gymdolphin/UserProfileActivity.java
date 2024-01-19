@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -29,6 +30,8 @@ public class UserProfileActivity extends AppCompatActivity {
     private LinearLayout fieldsLayout;
     private Button saveButton;
     private BottomNavigationView bottomNavigationView;
+
+    private EditText firstNameEditText , lastNameEditText, birthdayEditText, emailEditText, passwordEditText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,6 +74,12 @@ public class UserProfileActivity extends AppCompatActivity {
         updatePasswordIcon = findViewById(R.id.updatePassword);
         fieldsLayout = findViewById(R.id.fieldsLayout);
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
+        firstNameEditText = findViewById(R.id.firstNameEditText);
+        lastNameEditText = findViewById(R.id.lastNameEditText);
+        birthdayEditText = findViewById(R.id.birthdayEditText);
+        emailEditText = findViewById(R.id.emailEditText);
+        passwordEditText = findViewById(R.id.passwordEditText);
+
     }
 
     private void fetchUserData(String username) {
@@ -107,14 +116,35 @@ public class UserProfileActivity extends AppCompatActivity {
     }
 
     private void setIconClickListeners() {
-        firstNameIcon.setOnClickListener(v -> updateFieldInFirebase("firstName", firstNameTextView.getText().toString()));
-        lastNameIcon.setOnClickListener(v -> updateFieldInFirebase("lastName", lastNameTextView.getText().toString()));
-        updateBirthdayIcon.setOnClickListener(v -> updateFieldInFirebase("birthday", birthdayTextView.getText().toString()));
-        updateEmailIcon.setOnClickListener(v -> updateFieldInFirebase("email", emailTextView.getText().toString()));
-        updatePasswordIcon.setOnClickListener(v -> updateFieldInFirebase("password", passwordTextView.getText().toString()));
+        firstNameIcon.setOnClickListener(v -> {
+            String firstName = firstNameEditText.getText().toString();
+            updateFieldInFirebase("firstName", firstName);
+        });
+
+        lastNameIcon.setOnClickListener(v -> {
+            String lastName = lastNameEditText.getText().toString();
+            updateFieldInFirebase("lastName", lastName);
+        });
+
+        updateBirthdayIcon.setOnClickListener(v -> {
+            String birthday = birthdayEditText.getText().toString();
+            updateFieldInFirebase("birthday", birthday);
+        });
+
+        updateEmailIcon.setOnClickListener(v -> {
+            String email = emailEditText.getText().toString();
+            updateFieldInFirebase("email", email);
+        });
+
+        updatePasswordIcon.setOnClickListener(v -> {
+            String password = passwordEditText.getText().toString();
+            updateFieldInFirebase("password", password);
+        });
     }
 
+
     private void updateFieldInFirebase(String field, String value) {
+        Log.d("UserProfileActivity", "Updating field: " + field + " with value: " + value);
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
         // Retrieve username from the intent
