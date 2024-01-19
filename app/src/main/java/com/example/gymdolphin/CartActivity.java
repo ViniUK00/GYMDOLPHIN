@@ -177,10 +177,6 @@ public class CartActivity extends AppCompatActivity {
             Glide.with(holder.itemView.getContext()).load(cartItem.getImageUrl()).into(holder.itemImageView);
         }
 
-        // Inside your CartActivity
-
-
-
         @Override
         public int getItemCount() {
             return cartItems.size();

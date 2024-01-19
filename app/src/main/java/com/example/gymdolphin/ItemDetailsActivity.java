@@ -11,6 +11,7 @@ import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -87,23 +88,37 @@ public class ItemDetailsActivity extends AppCompatActivity {
         });
     }
 
+    // Inside addToCart method
     private void addToCart(final String username, final String name, int stockCount, String imageUrl, double price) {
         final DocumentReference itemRef = db.collection("carts").document(username)
                 .collection("items").document(name);
 
-        itemRef.get().addOnCompleteListener(task -> {
-            if (task.isSuccessful()) {
-                if (task.getResult().exists()) {
-                    // Item already exists in the cart
-                    updateCartItem(itemRef, task.getResult().getLong("quantity"));
-                } else {
-                    // Item doesn't exist in the cart, create a new one
-                    createCartItem(itemRef, imageUrl, price);
-                }
+        db.runTransaction(transaction -> {
+            DocumentSnapshot snapshot = transaction.get(itemRef);
+
+            if (snapshot.exists()) {
+                // Item already exists in the cart
+                transaction.update(itemRef,
+                        "quantity", FieldValue.increment(1),
+                        "price", FieldValue.increment(price));
             } else {
-                // Handle error
+                // Item doesn't exist in the cart, create a new one
+                double updatedPrice = price * 1; // Default quantity is 1
+                CartItemModel cartItem = new CartItemModel(imageUrl, updatedPrice, name, username, 1);
+                transaction.set(itemRef, cartItem);
             }
+
+            return null;
+        }).addOnSuccessListener(aVoid -> {
+            decrementStockCount(1); // Decrease stock count by 1
+            updateUI();
+        }).addOnFailureListener(e -> {
+            // Handle failure to add item to the cart
         });
+    }
+
+
+    private void updateUI() {
     }
 
     private void createCartItem(DocumentReference itemRef, String imageUrl, double initialPrice) {
@@ -114,23 +129,6 @@ public class ItemDetailsActivity extends AppCompatActivity {
                 .addOnSuccessListener(aVoid -> decrementStockCount(cartItem.getQuantity()));
     }
 
-    private void updateCartItem(DocumentReference itemRef, long quantity) {
-        String imageUrl = getIntent().getStringExtra("image");
-        double initialPrice = getIntent().getDoubleExtra("price", 0.0);
-        double updatedPrice = initialPrice * quantity;
-
-        itemRef.update("quantity", FieldValue.increment(1),
-                        "imageUrl", imageUrl,
-                        "price", updatedPrice,
-                        "name", itemName.getText().toString())
-                .addOnSuccessListener(aVoid -> {
-                    // Update UI after a successful backend update
-                    decrementStockCount(quantity);
-                })
-                .addOnFailureListener(e -> {
-                    // Handle failure to update the backend
-                });
-    }
 
     private void decrementStockCount(long initialQuantity) {
         // Decrement stock count only if the update is successful and the initial quantity is greater than 0

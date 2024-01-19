@@ -8,11 +8,6 @@ public class CartItemModel {
     private String username;
     private int quantity;
 
-    // Default constructor required for Firestore
-    public CartItemModel() {
-        // Empty constructor needed for Firestore
-    }
-
     // Constructor for creating a new cart item
     public CartItemModel(String imageUrl, double price, String name, String username, int quantity) {
         this.imageUrl = imageUrl;

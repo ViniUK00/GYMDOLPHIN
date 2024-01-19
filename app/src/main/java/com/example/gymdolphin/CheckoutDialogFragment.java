@@ -69,14 +69,18 @@ public class CheckoutDialogFragment extends DialogFragment {
 
                 // Optionally, you can also delete the cart document itself
                 FirebaseFirestore.getInstance().collection("carts").document(username).delete();
-
+                
                 // Notify the user (you can show a Toast or handle it in any way you prefer)
                 showToast("Cart deleted successfully!");
+                updateUI();
             } else {
                 // Handle errors, if any
                 showToast("Failed to delete cart. Please try again.");
             }
         });
+    }
+
+    private void updateUI() {
     }
 
     private void showToast(String message) {
