@@ -1,6 +1,6 @@
 package com.example.gymdolphin;
 
-public class CartItem {
+public class CartItemModel {
 
     private String imageUrl;
     private String name;
@@ -9,12 +9,12 @@ public class CartItem {
     private int quantity;
 
     // Default constructor required for Firestore
-    public CartItem(String imageUrl, double updatedPrice) {
+    public CartItemModel() {
         // Empty constructor needed for Firestore
     }
 
     // Constructor for creating a new cart item
-    public CartItem(String imageUrl, double price, String name, String username, int quantity) {
+    public CartItemModel(String imageUrl, double price, String name, String username, int quantity) {
         this.imageUrl = imageUrl;
         this.price = price;
         this.name = name;

@@ -73,7 +73,10 @@ public class CatalogActivity extends AppCompatActivity {
 
             } else if (itemId == R.id.nav_cart) {
                     // Handle cart icon click
-                    // Example: startActivity(new Intent(CatalogActivity.this, CartActivity.class));
+                    String username = intent.getStringExtra("USERNAME_EXTRA");
+                    startActivity(new Intent(CatalogActivity.this, CartActivity.class)
+                            .putExtra("USERNAME_EXTRA", username));
+
                     return true;
                 } else if (itemId == R.id.nav_catalog) {
                     // Handle home icon click

@@ -38,6 +38,9 @@
         <activity android:name=".UserProfileActivity">
 
         </activity>
+        <activity android:name=".CartActivity">
+
+        </activity>
 
 
     </application>
