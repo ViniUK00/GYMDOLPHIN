@@ -41,7 +41,6 @@ public class ItemDetailsActivity extends AppCompatActivity {
         itemStockCount = findViewById(R.id.itemStockCountDetails);
         addButton = findViewById(R.id.addButton);
 
-        // Initialize Firestore
         db = FirebaseFirestore.getInstance();
         currentUser = FirebaseAuth.getInstance().getCurrentUser();
 
@@ -71,9 +70,6 @@ public class ItemDetailsActivity extends AppCompatActivity {
                 public void onClick(View view) {
                     if (currentUser != null) {
                         addToCart(username, name, stockCount, imageUrl, price);
-                    } else {
-                        // Handle the case where the user is not authenticated
-                        // You may want to prompt the user to log in
                     }
                 }
             });
@@ -97,37 +93,21 @@ public class ItemDetailsActivity extends AppCompatActivity {
             DocumentSnapshot snapshot = transaction.get(itemRef);
 
             if (snapshot.exists()) {
-                // Item already exists in the cart
                 transaction.update(itemRef,
                         "quantity", FieldValue.increment(1),
                         "price", FieldValue.increment(price));
             } else {
-                // Item doesn't exist in the cart, create a new one
-                double updatedPrice = price * 1; // Default quantity is 1
+                double updatedPrice = price * 1;
                 CartItemModel cartItem = new CartItemModel(imageUrl, updatedPrice, name, username, 1);
                 transaction.set(itemRef, cartItem);
             }
 
             return null;
         }).addOnSuccessListener(aVoid -> {
-            decrementStockCount(1); // Decrease stock count by 1
-            updateUI();
-        }).addOnFailureListener(e -> {
-            // Handle failure to add item to the cart
+            decrementStockCount(1);
         });
     }
 
-
-    private void updateUI() {
-    }
-
-    private void createCartItem(DocumentReference itemRef, String imageUrl, double initialPrice) {
-        double updatedPrice = initialPrice * 1; // Default quantity is 1
-
-        CartItem cartItem = new CartItem(imageUrl, updatedPrice);
-        itemRef.set(cartItem)
-                .addOnSuccessListener(aVoid -> decrementStockCount(cartItem.getQuantity()));
-    }
 
 
     private void decrementStockCount(long initialQuantity) {

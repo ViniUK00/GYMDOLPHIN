@@ -22,7 +22,6 @@ public class CartItem {
         this.quantity = quantity;
     }
 
-    // Getter and setter methods
 
     public String getImageUrl() {
         return imageUrl;

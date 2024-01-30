@@ -11,9 +11,6 @@ public class User {
     private String password;
     private String username;
 
-    public User() {
-        // Default constructor required for calls to DataSnapshot.getValue(User.class)
-    }
 
     public User(String firstName, String lastName, String birthday, String email, String password) {
         this.firstName = firstName;

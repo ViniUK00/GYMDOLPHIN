@@ -40,27 +40,21 @@ public class ForgotPasswordActivity extends AppCompatActivity {
         recoverPasswordButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // Retrieve the entered email
                 String email = emailEditText.getText().toString();
 
-                // Check if the email is not empty
                 if (!email.isEmpty()) {
-                    // Initiate Firebase password reset
                     FirebaseAuth.getInstance().sendPasswordResetEmail(email)
                             .addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
                                     if (task.isSuccessful()) {
-                                        // Password reset email sent successfully
                                         Toast.makeText(ForgotPasswordActivity.this, "Password reset email sent to " + email, Toast.LENGTH_SHORT).show();
                                     } else {
-                                        // If the reset link couldn't be sent
                                         Toast.makeText(ForgotPasswordActivity.this, "Failed to send reset email: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                                     }
                                 }
                             });
                 } else {
-                    // Display a toast message if the email is empty
                     Toast.makeText(ForgotPasswordActivity.this, "Please enter your email", Toast.LENGTH_SHORT).show();
                 }
             }

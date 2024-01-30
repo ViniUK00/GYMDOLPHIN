@@ -25,11 +25,10 @@ import java.util.Map;
 
 public class UserProfileActivity extends AppCompatActivity {
 
-    private TextView headerTextView, usernameTextView, firstNameTextView, lastNameTextView,
+    private TextView usernameTextView, firstNameTextView, lastNameTextView,
             birthdayTextView, emailTextView, passwordTextView;
     private ImageView firstNameIcon, lastNameIcon, updateBirthdayIcon, updateEmailIcon, updatePasswordIcon;
     private LinearLayout fieldsLayout;
-    private Button saveButton;
     private Button signOutButton;
     private BottomNavigationView bottomNavigationView;
 
@@ -42,37 +41,29 @@ public class UserProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_profile);
 
-        // Initialize UI components
         initViews();
 
-        // Retrieve username from the intent
         Intent intent = getIntent();
         String username = intent.getStringExtra("USERNAME_EXTRA");
 
-        // Set the username in the TextView
         usernameTextView.setText(username);
 
-        // Fetch user data from Firestore based on the username
         fetchUserData(username);
 
         firebaseAuth = FirebaseAuth.getInstance();
-        // Set click listeners for the icons
         setIconClickListeners();
 
         signOutButton.setOnClickListener(v -> signOutUser());
-        // Set Bottom Navigation Bar listener
         bottomNavigationView.setOnNavigationItemSelectedListener(navListener);
 
         // Set other listeners or perform other operations as needed...
     }
 
     private void signOutUser() {
-        // Sign out the user using FirebaseAuth
         firebaseAuth.signOut();
 
-        // After signing out, navigate back to the login or home screen
         startActivity(new Intent(UserProfileActivity.this, MainActivity.class));
-        finish(); // Close the current activity
+        finish();
     }
 
     private void initViews() {
@@ -123,10 +114,6 @@ public class UserProfileActivity extends AppCompatActivity {
                         emailTextView.setText(email);
                         passwordTextView.setText(password);
 
-                        // You can perform other operations with the fetched data if needed...
-                    } else {
-                        Log.e("UserProfileActivity", "Error getting user data", task.getException());
-                        // Handle the error
                     }
                 });
     }
@@ -163,20 +150,16 @@ public class UserProfileActivity extends AppCompatActivity {
         Log.d("UserProfileActivity", "Updating field: " + field + " with value: " + value);
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-        // Retrieve username from the intent
         Intent intent = getIntent();
         String username = intent.getStringExtra("USERNAME_EXTRA");
 
-        // Create a map to update the specified field
         Map<String, Object> data = new HashMap<>();
         data.put(field, value);
 
-        // Update the field in the Firestore database
         db.collection("users")
                 .document(username)
                 .update(data)
                 .addOnSuccessListener(aVoid -> {
-                    // Field updated successfully
                     Toast.makeText(UserProfileActivity.this, "Field updated successfully", Toast.LENGTH_SHORT).show();
                 })
                 .addOnFailureListener(e -> {
@@ -186,7 +169,6 @@ public class UserProfileActivity extends AppCompatActivity {
                 });
     }
 
-    // Bottom Navigation Bar Listener
     private BottomNavigationView.OnNavigationItemSelectedListener navListener =
             new BottomNavigationView.OnNavigationItemSelectedListener() {
                 @Override

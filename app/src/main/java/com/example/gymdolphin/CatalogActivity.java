@@ -53,7 +53,6 @@ public class CatalogActivity extends AppCompatActivity {
             welcomeMessageTextView.setText(welcomeMessage);
         }
 
-        // Add a divider between items
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(), LinearLayoutManager.VERTICAL);
         recyclerView.addItemDecoration(dividerItemDecoration);
 
@@ -64,7 +63,6 @@ public class CatalogActivity extends AppCompatActivity {
                 int itemId = item.getItemId();
 
                 if (itemId == R.id.nav_user) {
-                    // Handle user icon click
                     String username = intent.getStringExtra("USERNAME_EXTRA");
                     startActivity(new Intent(CatalogActivity.this, UserProfileActivity.class)
                             .putExtra("USERNAME_EXTRA", username));
@@ -72,14 +70,12 @@ public class CatalogActivity extends AppCompatActivity {
                     return true;
 
             } else if (itemId == R.id.nav_cart) {
-                    // Handle cart icon click
                     String username = intent.getStringExtra("USERNAME_EXTRA");
                     startActivity(new Intent(CatalogActivity.this, CartActivity.class)
                             .putExtra("USERNAME_EXTRA", username));
 
                     return true;
                 } else if (itemId == R.id.nav_catalog) {
-                    // Handle home icon click
                     String username = getIntent().getStringExtra("USERNAME_EXTRA");
                     startActivity(new Intent(CatalogActivity.this, CatalogActivity.class)
                             .putExtra("USERNAME_EXTRA", username));
@@ -109,13 +105,11 @@ public class CatalogActivity extends AppCompatActivity {
                 new FirestoreRecyclerAdapter<ItemModel, ItemViewHolder>(options) {
                     @Override
                     protected void onBindViewHolder(@NonNull ItemViewHolder holder, int position, @NonNull ItemModel model) {
-                        // Bind data to your ViewHolder
                         holder.setItemImage(model.getImage());
                         holder.setItemName(model.getName());
                         holder.setItemPrice(model.getPrice());
                         holder.setItemSmallDescription(model.getSmallDescription());
 
-                        // Add click listener to open ItemDetailsActivity
                         holder.itemView.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
@@ -135,7 +129,6 @@ public class CatalogActivity extends AppCompatActivity {
                     @NonNull
                     @Override
                     public ItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-                        // Create a new ViewHolder
                         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_layout, parent, false);
                         return new ItemViewHolder(view);
                     }

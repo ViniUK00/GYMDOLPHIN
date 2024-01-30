@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        usernameEditText = findViewById(R.id.emailEditText); // Assuming username is entered in the email field
+        usernameEditText = findViewById(R.id.emailEditText);
         passwordEditText = findViewById(R.id.passwordEditText);
         signInButton = findViewById(R.id.signInButton);
         forgotPasswordTextView = findViewById(R.id.forgotPasswordTextView);
@@ -41,10 +41,8 @@ public class MainActivity extends AppCompatActivity {
         signInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // Retrieve username and password from EditText fields
                 String username = usernameEditText.getText().toString();
                 String password = passwordEditText.getText().toString();
-                // Validate if username and password are not empty
                 if (!username.isEmpty() && !password.isEmpty()) {
                     signInWithUsername(username, password);
                 } else {

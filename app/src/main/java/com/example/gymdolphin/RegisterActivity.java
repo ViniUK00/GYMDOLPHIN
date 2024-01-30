@@ -59,7 +59,6 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
 
-        // Set up click listener for the back button
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -67,7 +66,6 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
 
-        // Set up click listener for the create account button
         createAccountButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -79,9 +77,7 @@ public class RegisterActivity extends AppCompatActivity {
                 String password = passwordEditText.getText().toString();
                 String confirmPassword = confirmPasswordEditText.getText().toString();
 
-                // Validate if required fields are not empty
                 if (!firstName.isEmpty() && !lastName.isEmpty() && !email.isEmpty() && !password.isEmpty() && !confirmPassword.isEmpty()) {
-                    // Check if password and confirm password match
                     if (password.equals(confirmPassword)) {
                         createAccount(email, password, firstName, lastName, birthdayEditText.getText().toString());
                     } else {
@@ -122,10 +118,8 @@ public class RegisterActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             FirebaseUser user = mAuth.getCurrentUser();
 
-                            // Create a User object with additional information
                             User userProfile = new User(firstName, lastName, birthday, email, password);
 
-                            // Store the user's additional information in Firestore with username as document ID
                             FirebaseFirestore db = FirebaseFirestore.getInstance();
                             CollectionReference usersCollection = db.collection("users");
                             DocumentReference userRef = usersCollection.document(userProfile.getUsername());
