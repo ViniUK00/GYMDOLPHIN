@@ -8,21 +8,23 @@ One notable feature is the ability to save the shopping cart into the database, 
 
 The development process involved the use of various tools, including Figma for wireframing, Photoshop for creating the logo, Firebase for database management, and Android Studio for development environment. I selected these tools based on my familiarity with their functionalities. In Android Studio, I used Java for both backend and frontend development, while XML was applied for app layout, and frontend design.
 
-## Demo
+## Screenshots
 
-Insert gif or link to demo
+![User Flow](https://github.com/ViniUK00/GYMDOLPHIN/blob/master/imgs/Aspose.Words.80ebe28e-0817-4e49-8df3-7bb1eb0f5adc.003.png)
 
-https://github.com/ViniUK00/GYMDOLPHIN/blob/master/imgs/Aspose.Words.80ebe28e-0817-4e49-8df3-7bb1eb0f5adc.003.png
+![Login Activity](https://github.com/ViniUK00/GYMDOLPHIN/blob/master/imgs/Aspose.Words.80ebe28e-0817-4e49-8df3-7bb1eb0f5adc.006.png)
 
-https://github.com/ViniUK00/GYMDOLPHIN/blob/master/imgs/Aspose.Words.80ebe28e-0817-4e49-8df3-7bb1eb0f5adc.006.png
+![Catalog Activity](https://github.com/ViniUK00/GYMDOLPHIN/blob/master/imgs/Aspose.Words.80ebe28e-0817-4e49-8df3-7bb1eb0f5adc.015.png)
 
-https://github.com/ViniUK00/GYMDOLPHIN/blob/master/imgs/Aspose.Words.80ebe28e-0817-4e49-8df3-7bb1eb0f5adc.015.png
+![Item Activity](https://github.com/ViniUK00/GYMDOLPHIN/blob/master/imgs/Aspose.Words.80ebe28e-0817-4e49-8df3-7bb1eb0f5adc.017.png)
 
-https://github.com/ViniUK00/GYMDOLPHIN/blob/master/imgs/Aspose.Words.80ebe28e-0817-4e49-8df3-7bb1eb0f5adc.017.png
+![Shopping Cart Activity](https://github.com/ViniUK00/GYMDOLPHIN/blob/master/imgs/Aspose.Words.80ebe28e-0817-4e49-8df3-7bb1eb0f5adc.019.png)
 
-https://github.com/ViniUK00/GYMDOLPHIN/blob/master/imgs/Aspose.Words.80ebe28e-0817-4e49-8df3-7bb1eb0f5adc.019.png
+![Payment Activity](https://github.com/ViniUK00/GYMDOLPHIN/blob/master/imgs/Aspose.Words.80ebe28e-0817-4e49-8df3-7bb1eb0f5adc.021.png)
 
-https://github.com/ViniUK00/GYMDOLPHIN/blob/master/imgs/Aspose.Words.80ebe28e-0817-4e49-8df3-7bb1eb0f5adc.021.png
+
+
+
 ## Authors
 
 - [@ViniUK00](https://github.com/ViniUK00)
